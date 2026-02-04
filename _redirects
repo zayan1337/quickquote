@@ -1,0 +1,5 @@
+# Redirect www to non-www (Amplify handles this in console, but good to have)
+# https://www.quickquote.space/* https://quickquote.space/:splat 301
+
+# SPA fallback (not needed for this static site, but useful if you add routing)
+# /*    /index.html   200
