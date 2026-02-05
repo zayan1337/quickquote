@@ -183,14 +183,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="layout">
-        <!-- Mobile Ad (visible only on smaller screens) -->
-        <aside class="ad-mobile">
-            <a class="ad-mobile-link" href="https://business.idzlink.com" target="_blank" rel="noopener noreferrer" aria-label="Idzlink">
-                <img class="ad-mobile-image" src="idzlink-ad-mobile.png" alt="Idzlink">
-            </a>
-        </aside>
+    <!-- Mobile Ad: outside layout so it never competes with side ads -->
+    <aside class="ad-mobile">
+        <a class="ad-mobile-link" href="https://business.idzlink.com" target="_blank" rel="noopener noreferrer" aria-label="Idzlink">
+            <img class="ad-mobile-image" src="idzlink-ad-mobile.png" alt="Idzlink" loading="lazy">
+        </a>
+    </aside>
 
+    <div class="layout">
         <!-- Left Ad Space -->
         <aside class="ad-space ad-left">
             <a class="ad-link" href="https://business.idzlink.com" target="_blank" rel="noopener noreferrer" aria-label="Idzlink">
