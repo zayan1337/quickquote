@@ -56,21 +56,28 @@ body {
     padding: 20px;
     max-width: 1600px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
-/* Ad Spaces */
+/* Ad Spaces - fixed skyscraper size, behind content */
 .ad-space {
     width: 160px;
+    min-width: 160px;
+    max-width: 160px;
     flex-shrink: 0;
     position: sticky;
     top: 20px;
     height: fit-content;
+    z-index: 0;
 }
 
 .ad-link {
     display: block;
     width: 160px;
+    max-width: 160px;
     height: 600px;
+    max-height: 600px;
     border-radius: var(--radius);
     overflow: hidden;
     border: 1px solid var(--border);
@@ -85,7 +92,10 @@ body {
 .ad-image {
     width: 100%;
     height: 100%;
+    max-width: 160px;
+    max-height: 600px;
     object-fit: cover;
+    object-position: top center;
     display: block;
 }
 
@@ -108,16 +118,19 @@ body {
         display: block;
         width: 100%;
         max-width: 100vw;
+        max-height: 120px;
         margin: 0 auto 20px;
         padding: 0;
         box-sizing: border-box;
         overflow: hidden;
+        z-index: 0;
     }
 
     .ad-mobile-link {
         display: block;
         width: 100%;
         max-width: 100%;
+        max-height: 120px;
         border-radius: var(--radius);
         overflow: hidden;
         border: 1px solid var(--border);
@@ -134,18 +147,21 @@ body {
         display: block;
         width: 100%;
         max-width: 100%;
+        max-height: 120px;
         height: auto;
         vertical-align: top;
         object-fit: contain;
-        object-position: top left;
+        object-position: top center;
     }
 }
 
-/* Main Content */
+/* Main Content - above ads in stacking order */
 .main-content {
     flex: 1;
     max-width: 900px;
     min-width: 0;
+    position: relative;
+    z-index: 2;
 }
 
 /* Header */
