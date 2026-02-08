@@ -1220,6 +1220,11 @@ function downloadPDF() {
     }
     pdfWindow.document.write(getQuoteDocumentHTML(data, html, { forPdf: true }));
     pdfWindow.document.close();
+
+    // Track PDF download in Google Analytics
+    if (typeof gtag === 'function') {
+        gtag('event', 'file_download', { file_name: 'quote', file_extension: 'pdf', method: 'PDF' });
+    }
 }
 
 function printQuote() {
