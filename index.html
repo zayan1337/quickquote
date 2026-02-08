@@ -229,6 +229,16 @@
                         Your Business Info <span class="optional">(optional)</span>
                     </h2>
                     <div class="form-grid">
+                        <div class="form-group form-group-full">
+                            <label for="businessLogoUrl">Logo URL <span class="optional">(optional)</span></label>
+                            <input type="url" id="businessLogoUrl" placeholder="https://yoursite.com/logo.png">
+                            <div class="logo-upload-row">
+                                <span class="logo-upload-label">Or upload image</span>
+                                <input type="file" id="businessLogoFile" accept="image/*" class="logo-file-input" aria-label="Upload logo image">
+                                <button type="button" id="clearLogoUploadBtn" class="btn btn-ghost btn-small logo-clear-btn" style="display: none;">Remove</button>
+                            </div>
+                            <div id="logoUploadPreview" class="logo-upload-preview" style="display: none;"></div>
+                        </div>
                         <div class="form-group">
                             <label for="businessName">Business Name</label>
                             <input type="text" id="businessName" placeholder="Your Company Name">
@@ -290,15 +300,51 @@
                         <div class="form-group">
                             <label for="currency">Currency</label>
                             <select id="currency">
-                                <option value="$">$ USD</option>
-                                <option value="€">€ EUR</option>
-                                <option value="£">£ GBP</option>
-                                <option value="¥">¥ JPY</option>
-                                <option value="₹">₹ INR</option>
-                                <option value="R$">R$ BRL</option>
-                                <option value="C$">C$ CAD</option>
-                                <option value="A$">A$ AUD</option>
+                                <optgroup label="Most popular">
+                                    <option value="$">$ USD</option>
+                                    <option value="€">€ EUR</option>
+                                    <option value="£">£ GBP</option>
+                                    <option value="¥">¥ JPY</option>
+                                    <option value="CN¥">CN¥ CNY</option>
+                                    <option value="₹">₹ INR</option>
+                                    <option value="C$">C$ CAD</option>
+                                    <option value="A$">A$ AUD</option>
+                                    <option value="Fr">Fr CHF</option>
+                                    <option value="R$">R$ BRL</option>
+                                    <option value="MX$">MX$ MXN</option>
+                                    <option value="S$">S$ SGD</option>
+                                    <option value="HK$">HK$ HKD</option>
+                                    <option value="NZ$">NZ$ NZD</option>
+                                    <option value="Rf">Rf MVR</option>
+                                </optgroup>
+                                <optgroup label="Other currencies">
+                                    <option value="AED ">AED AED</option>
+                                    <option value="৳">৳ BDT</option>
+                                    <option value="kr">kr DKK</option>
+                                    <option value="E£">E£ EGP</option>
+                                    <option value="Rp">Rp IDR</option>
+                                    <option value="KSh">KSh KES</option>
+                                    <option value="Rs">Rs LKR</option>
+                                    <option value="RM">RM MYR</option>
+                                    <option value="Rs">Rs NPR</option>
+                                    <option value="₦">₦ NGN</option>
+                                    <option value="kr">kr NOK</option>
+                                    <option value="₨">₨ PKR</option>
+                                    <option value="₱">₱ PHP</option>
+                                    <option value="zł">zł PLN</option>
+                                    <option value="SAR ">SAR SAR</option>
+                                    <option value="kr">kr SEK</option>
+                                    <option value="฿">฿ THB</option>
+                                    <option value="₫">₫ VND</option>
+                                    <option value="R">R ZAR</option>
+                                </optgroup>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group-same-width">
+                            <label for="clientPO">Client PO / Reference <span class="optional">(optional)</span></label>
+                            <input type="text" id="clientPO" placeholder="PO number or reference">
                         </div>
                     </div>
                 </section>
@@ -352,9 +398,69 @@
                             </span>
                             <span id="discountAmount">-$0.00</span>
                         </div>
+                        <div class="total-row shipping-row">
+                            <span>
+                                Shipping
+                                <input type="number" id="shippingAmount" value="0" min="0" step="0.01" placeholder="0">
+                            </span>
+                            <span id="shippingAmountDisplay">$0.00</span>
+                        </div>
+                        <div class="total-row tax-on-shipping-row">
+                            <label class="pill-toggle-label tax-on-shipping-label">
+                                <input type="checkbox" id="taxOnShipping" class="pill-toggle-input">
+                                <span class="pill-toggle-pill"></span>
+                                <span class="pill-toggle-text">Apply tax to shipping</span>
+                            </label>
+                            <span></span>
+                        </div>
                         <div class="total-row grand-total">
                             <span>Total</span>
                             <span id="grandTotal">$0.00</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payment & Terms (under Totals, above Notes) -->
+                <section class="section payment-terms-section">
+                    <h2 class="section-title">
+                        Payment & Terms <span class="optional">(optional)</span>
+                    </h2>
+                    <div class="form-grid">
+                        <div class="form-group form-group-full">
+                            <label for="paymentTerms">Payment terms</label>
+                            <select id="paymentTerms">
+                                <option value="">—</option>
+                                <option value="Due on receipt">Due on receipt</option>
+                                <option value="Net 15">Net 15</option>
+                                <option value="Net 30">Net 30</option>
+                                <option value="Net 60">Net 60</option>
+                                <option value="50% deposit, balance on completion">50% deposit, balance on completion</option>
+                                <option value="Due within 15 days">Due within 15 days</option>
+                                <option value="Other">Other (enter below)</option>
+                            </select>
+                            <input type="text" id="paymentTermsOther" placeholder="Enter custom payment terms" class="payment-terms-other" style="display: none;">
+                        </div>
+                        <div class="form-group">
+                            <label for="depositAmount">Deposit / Advance</label>
+                            <input type="number" id="depositAmount" value="0" min="0" step="0.01" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="depositType">Deposit type</label>
+                            <select id="depositType">
+                                <option value="fixed">Fixed amount</option>
+                                <option value="percent">Percent (%)</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="termsAndConditions">Terms & conditions</label>
+                            <textarea id="termsAndConditions" rows="3" placeholder="Payment terms, late fees, warranty, etc."></textarea>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label class="pill-toggle-label checkbox-label">
+                                <input type="checkbox" id="showAcceptedBy" class="pill-toggle-input">
+                                <span class="pill-toggle-pill"></span>
+                                <span class="pill-toggle-text">Show &quot;Accepted by&quot; signature line on quote</span>
+                            </label>
                         </div>
                     </div>
                 </section>
@@ -410,7 +516,7 @@
                     </article>
                     <article class="feature">
                         <h3>Professional PDF Export</h3>
-                        <p>Download your quotation as a beautifully formatted A4 PDF. Choose from 4 professional templates.</p>
+                        <p>Download your quotation as a beautifully formatted A4 PDF. Choose from 7 professional templates.</p>
                     </article>
                     <article class="feature">
                         <h3>100% Free Forever</h3>
@@ -440,6 +546,12 @@
                     <li><strong>Service Providers</strong> - Cleaning, landscaping, repair services</li>
                     <li><strong>Anyone</strong> who needs to create a quick price estimate</li>
                 </ul>
+
+                <!-- SEO: supported currencies (visible to crawlers, subtle on page) -->
+                <div class="seo-currencies" id="supported-currencies">
+                    <h2>Supported currencies</h2>
+                    <p>QuickQuote supports multiple currencies for your quotations, including: US Dollar (USD $), Euro (EUR €), British Pound (GBP £), Japanese Yen (JPY ¥), Chinese Yuan (CNY CN¥), Indian Rupee (INR ₹), Pakistani Rupee (PKR ₨), Bangladeshi Taka (BDT ৳), Sri Lankan Rupee (LKR), Nepalese Rupee (NPR), Maldivian Rufiyaa (MVR Rf), Brazilian Real (BRL R$), Canadian Dollar (CAD C$), Australian Dollar (AUD A$), New Zealand Dollar (NZD NZ$), Singapore Dollar (SGD S$), Hong Kong Dollar (HKD HK$), Swiss Franc (CHF Fr), Polish Zloty (PLN zł), Swedish Krona (SEK kr), Norwegian Krone (NOK kr), Danish Krone (DKK kr), South African Rand (ZAR R), Mexican Peso (MXN MX$), UAE Dirham (AED), Saudi Riyal (SAR), Thai Baht (THB ฿), Malaysian Ringgit (MYR RM), Indonesian Rupiah (IDR Rp), Philippine Peso (PHP ₱), Vietnamese Dong (VND ₫), Egyptian Pound (EGP E£), Nigerian Naira (NGN ₦), and Kenyan Shilling (KES KSh). Create quotes in your local currency with the correct currency symbol.</p>
+                </div>
             </section>
 
             <footer class="footer">
@@ -586,6 +698,79 @@
                     </div>
                     <h3>Modern</h3>
                     <p>Gradient & vibrant</p>
+                </div>
+
+                <!-- Dark Template -->
+                <div class="template-card" data-template="dark">
+                    <div class="template-preview">
+                        <div class="tp-header" style="background: #0f172a; padding: 14px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <div style="width: 28px; height: 3px; background: #22d3ee; border-radius: 2px; margin-bottom: 4px;"></div>
+                                    <div style="width: 44px; height: 5px; background: white; border-radius: 2px;"></div>
+                                </div>
+                                <div style="width: 36px; height: 12px; background: #1e293b; border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                        <div class="tp-content" style="padding-top: 10px; background: #0f172a;">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+                                <div style="flex: 1; background: #1e293b; border-radius: 4px; height: 20px;"></div>
+                                <div style="flex: 1; background: #1e293b; border-radius: 4px; height: 20px;"></div>
+                            </div>
+                            <div style="background: #1e293b; height: 6px; margin-bottom: 4px; border-radius: 2px;"></div>
+                            <div style="height: 8px; background: #22d3ee; width: 45%; margin-left: auto; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                    <h3>Dark</h3>
+                    <p>Sleek & modern</p>
+                </div>
+
+                <!-- Luxury Template -->
+                <div class="template-card" data-template="luxury">
+                    <div class="template-preview">
+                        <div class="tp-header" style="background: #fefce8; border-top: 4px solid #b45309; padding: 14px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <div style="width: 32px; height: 2px; background: #b45309; margin-bottom: 4px;"></div>
+                                    <div style="width: 48px; height: 5px; background: #111; border-radius: 1px;"></div>
+                                </div>
+                                <div style="width: 38px; height: 12px; background: #e5e7eb; border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                        <div class="tp-content" style="padding-top: 10px;">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+                                <div style="flex: 1; border-left: 3px solid #b45309; height: 18px; background: #fefce8;"></div>
+                                <div style="flex: 1; height: 18px; background: #fefce8;"></div>
+                            </div>
+                            <div style="border-bottom: 2px solid #b45309; margin-bottom: 4px;"></div>
+                            <div style="height: 6px; background: #b45309; width: 40%; margin-left: auto;"></div>
+                        </div>
+                    </div>
+                    <h3>Luxury</h3>
+                    <p>Gold & premium</p>
+                </div>
+
+                <!-- Bold Template -->
+                <div class="template-card" data-template="bold">
+                    <div class="template-preview">
+                        <div class="tp-header" style="display: flex;">
+                            <div style="width: 6px; min-height: 100%; background: #dc2626;"></div>
+                            <div style="flex: 1; padding: 12px 14px;">
+                                <div style="width: 24px; height: 2px; background: #dc2626; margin-bottom: 4px;"></div>
+                                <div style="width: 52px; height: 6px; background: #111; border-radius: 1px;"></div>
+                            </div>
+                        </div>
+                        <div class="tp-content" style="padding: 10px 14px;">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+                                <div style="flex: 1; background: #fef2f2; border-left: 3px solid #dc2626; height: 18px;"></div>
+                                <div style="width: 35%; height: 14px; background: #f3f4f6;"></div>
+                            </div>
+                            <div style="background: #111; height: 6px; margin-bottom: 4px;"></div>
+                            <div style="height: 6px; background: #dc2626; width: 35%; margin-left: auto;"></div>
+                        </div>
+                    </div>
+                    <h3>Bold</h3>
+                    <p>Strong & confident</p>
                 </div>
             </div>
 

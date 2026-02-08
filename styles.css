@@ -252,6 +252,99 @@ body {
     min-width: 140px;
 }
 
+.form-row .form-group-full {
+    flex: 1 1 100%;
+    min-width: 0;
+}
+
+/* Same width as one form-group in a 4-column form-row (e.g. Quote #) */
+.form-row .form-group-same-width {
+    flex: 0 0 auto;
+    width: calc((100% - 48px) / 4);
+    min-width: 140px;
+}
+
+.quote-details-section .form-row:not(:first-child) {
+    margin-top: 24px;
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+/* Pill toggle (checkbox styled as pill) */
+.pill-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text);
+    user-select: none;
+}
+
+.pill-toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.pill-toggle-pill {
+    flex-shrink: 0;
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    position: relative;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pill-toggle-pill::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.pill-toggle-input:checked + .pill-toggle-pill {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.pill-toggle-input:checked + .pill-toggle-pill::after {
+    transform: translateX(22px);
+    background: #1e1e1e;
+}
+
+.pill-toggle-input:focus-visible + .pill-toggle-pill {
+    box-shadow: 0 0 0 2px rgba(138, 180, 248, 0.4);
+}
+
+.pill-toggle-label:hover .pill-toggle-pill {
+    border-color: var(--text-muted);
+}
+
+.pill-toggle-text {
+    line-height: 1.3;
+}
+
+.checkbox-label {
+    font-weight: 500;
+}
+
+.checkbox-label .pill-toggle-text {
+    font-size: 0.9rem;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -301,6 +394,59 @@ select {
     background-repeat: no-repeat;
     background-position: right 12px center;
     padding-right: 40px;
+}
+
+select optgroup {
+    font-weight: 700;
+    color: var(--text);
+}
+
+select optgroup[label="Most popular"] {
+    font-weight: 800;
+}
+
+/* Logo upload row */
+.logo-upload-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.logo-upload-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.logo-file-input {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    max-width: 100%;
+}
+
+.logo-file-input::file-selector-button {
+    padding: 6px 12px;
+    margin-right: 10px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.logo-clear-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.logo-upload-preview {
+    margin-top: 10px;
+    padding: 8px;
+    background: var(--bg-surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
 }
 
 /* Items Section */
@@ -462,6 +608,26 @@ select {
     padding: 6px 8px;
     font-size: 0.85rem;
     text-align: center;
+}
+
+.shipping-row input {
+    width: 80px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+    text-align: right;
+}
+
+.tax-on-shipping-row {
+    padding: 8px 0 !important;
+}
+
+.tax-on-shipping-label {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.tax-on-shipping-label .pill-toggle-text {
+    font-size: 0.9rem;
 }
 
 .grand-total {
@@ -1059,6 +1225,27 @@ select {
     color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 24px;
+}
+
+/* Supported currencies list: indexable for SEO, subtle on page */
+.seo-currencies {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.seo-currencies h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.seo-currencies p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
 }
 
 .features-grid {
