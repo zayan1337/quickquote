@@ -10,6 +10,12 @@ function initializeApp() {
     setDefaultDates();
     addItemRow();
     setupEventListeners();
+    // Hide "Buy me a coffee" section if link is not set (still #)
+    const supportLink = document.getElementById('supportLink');
+    const supportSection = supportLink && supportLink.closest('.support-section');
+    if (supportSection && (!supportLink.href || supportLink.href.endsWith('#'))) {
+        supportSection.style.display = 'none';
+    }
 }
 
 function setDefaultDates() {

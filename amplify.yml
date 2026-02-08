@@ -1,7 +1,6 @@
 version: 1
 frontend:
   phases:
-    # No build phase needed - it's a static site
     build:
       commands:
         - echo "Static site - no build required"
